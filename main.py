@@ -40,6 +40,9 @@ def main() -> int:
     # Gate checks, enforced before anything is written.
     assert isinstance(ENTRY, str) and ENTRY.strip(), "entry must not be empty"
     assert "\n" not in ENTRY and "\r" not in ENTRY, "entry must be one line"
+    assert ENTRY == ENTRY.strip(), "entry must not carry leading/trailing space"
+    assert all(ord(ch) >= 32 or ch in "\t" for ch in ENTRY), \
+        "entry must not contain control characters"
     assert 1 <= len(ENTRY) <= 200, f"entry must be 1-200 chars, got {len(ENTRY)}"
 
     encoded = ENTRY.encode("utf-8")  # raises if not valid UTF-8 text
